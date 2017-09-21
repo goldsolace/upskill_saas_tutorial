@@ -4,8 +4,10 @@
 </div>
 
 <div class="well">
-  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {id: 'pro_form'} ) do |f| %>
     <%= devise_error_messages! %>
+    
+    <%= hidden_field_tag 'plan', params[:plan] %>
   
     <div class="field form-group">
       <%= f.label :email %><br />
@@ -35,8 +37,9 @@
     </div>
     <div class="form-group" >
       <div class="form-inline" >
-        <%= label_tag :card_month, "Card Expiration", class: "col-form-label" %>
+        
         <div class="form-col">
+          <%= label_tag :card_month, "Card Expiration", class: "col-form-label" %>
           <%= select_month nil, {add_month_numbers: true}, {name: nil, id: "card_month", class: "form-control" } %>
           <%= select_year nil, {start_year: Date.today.year, end_year: Date.today.year+15}, {name: nil, id: "card_year", class: "form-control" } %>
         </div>
@@ -45,7 +48,7 @@
   
   
     <div class="actions form-group">
-      <%= f.submit "Sign up", class: 'btn btn-success btn-block' %>
+      <%= f.submit "Sign up", class: 'btn btn-success btn-block', id: 'form-sign-up-btn' %>
     </div>
   <% end %>
   
