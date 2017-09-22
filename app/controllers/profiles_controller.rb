@@ -1,10 +1,10 @@
 class ProfilesController < ApplicationController
   before_action :authenticate_user!
-  before_action :only_current_user
+  before_action :only_current_user 
   
   # GET to /users/:user_id/profile/new
   def new
-    # Create blank profile details form
+    # Render blank profile details form
     @profile = Profile.new
   end
   
@@ -15,8 +15,7 @@ class ProfilesController < ApplicationController
     # Create profile linked to this specific user
     @profile = @user.build_profile( profile_params )
     if @profile.save
-      flash[:success] = "Profile Created!"
-      # Redirect user to their profile page
+      flash[:success] = "Profile updated!"
       redirect_to user_path(id: params[:user_id] )
     else
       render action: :new
@@ -30,11 +29,14 @@ class ProfilesController < ApplicationController
   end
   
   # PATCH to /users/:user_id/profile
-  def update
+  def update 
+    # Retrieve the user from the database
     @user = User.find( params[:user_id] )
+    # Retrieve that user's profile
     @profile = @user.profile
-    if @profile.update_attributes( profile_params )
-      flash[:success] = "Profile Updated!"
+    # Mass assign edited profile attributes and save (update)
+    if @profile.update_attributes(profile_params)
+      flash[:success] = "Profile updated!"
       # Redirect user to their profile page
       redirect_to user_path(id: params[:user_id] )
     else
